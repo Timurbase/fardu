@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    O'qituvchilar
+{% endblock %}
+
+{% block content %}
+    <style>
+        .content {
+            padding: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #f5f6fa; /* Juda yengil Kulrang (Fon) */
+            width: 40%;
+            height: 250px;
+            border-radius: 10px;
+            perspective: 1000px;
+            flex: 0 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            border-radius: 10px;
+        }
+
+        .card:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front,
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .card-front {
+            background-color: #34495e; /* To'q Kulrang Ko'k (Asosiy Rang) */
+            color: #f5f6fa; /* Juda yengil Kulrang (Matn rangi) */
+        }
+
+        .card-back {
+            background-color: #95a5a6; /* Sof Kulrang (Ikkinchi Rang) */
+            color: #2c3e50; /* To'q Moviy (Matn rangi) */
+            transform: rotateY(180deg);
+        }
+
+        h3 {
+            margin: 0;
+            font-size: 22px; /* Harflar biroz kattalashtirildi */
+            font-family: 'Arial', sans-serif;
+        }
+
+        p {
+            margin: 10px 0;
+            font-size: 18px; /* Matn o'lchami biroz kattalashtirildi */
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Tugma dizayni */
+        .card button {
+            padding: 12px;
+            background-color: #e67e22; /* Iliq To'q Sariq (Aksent Rang) */
+            color: #ffffff; /* Oq (Tugma matn rangi) */
+            border: none;
+            border-radius: 8px; /* Tugma o'lchami yumaloqroq qilindi */
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px; /* Tugmadagi matn o'lchami kattalashtirildi */
+        }
+
+        .card button:hover {
+            background-color: #d35400; /* Iliq To'q Sariqning quyuqroq soyasi */
+        }
+    </style>
+
+    <section class="content">
+        {% for xodim in xodimlar %}
+        <div class="card">
+            <div class="card-inner">
+
+                <!-- Kartochkaning old tomoni -->
+                <div class="card-front">
+                    <h3>{{ xodim.first_name }}</h3>
+                    <p>Fan: {{ xodim.last_name }}</p>
+                </div>
+
+                <!-- Kartochkaning orqa tomoni -->
+                <div class="card-back">
+                    <h3>{{ oqituvchi.ism }}</h3>
+                    <p>Ilmiy daraja: {{ oqituvchi.unvoni }}</p>
+                    <button class="connect-btn">+ Connect</button>
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+    </section>
+{% endblock %}
